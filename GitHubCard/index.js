@@ -1,11 +1,10 @@
-const axios = require('axios').default;
-
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
 
 const cardHeader = document.querySelector('.cards');
+console.log(cardHeader);
 
 axios.get('https://api.github.com/users/anhogan')
   .then(user => {
@@ -38,8 +37,10 @@ const friendsArray = ["tetondan", "dustinmyers", "bigknell", "agyin3", "nathandr
 
 friendsArray.forEach(friend => {
   axios.get(`https://api.github.com/users/${friend}`)
-  let newFriend = createUser(friend);
-  cardHeader.append(newFriend);
+    .then(username => {
+      let newFriend = createUser(username);
+      cardHeader.append(newFriend);
+    });
 });
 
 /* Step 3: Create a function that accepts a single object as its only argument,
