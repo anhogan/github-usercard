@@ -86,11 +86,13 @@ function createUser(user) {
   header.textContent = user.name;
   username.textContent = user.login;
   location.textContent = `Location: ${user.location}`;
-  profile.textContent = `Profile: ${link}`;
+  profile.textContent = `Profile: `;
   link.textContent = user.html_url;
   followers.textContent = `Followers: ${user.followers}`;
   following.textContent = `Following: ${user.following}`;
   bio.textContent = `Bio: ${user.bio}`;
+
+  profile.append(link);
 
   infoDiv.append(header);
   infoDiv.append(username);
