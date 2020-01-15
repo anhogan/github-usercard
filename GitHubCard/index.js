@@ -5,7 +5,13 @@ const axios = require('axios').default;
            https://api.github.com/users/<your name>
 */
 
-axios.get('https://api.github.com/users/anhogan');
+const cardHeader = document.querySelector('.cards');
+
+axios.get('https://api.github.com/users/anhogan')
+  .then(user => {
+      let newUser = createUser(user);
+      cardHeader.append(newUser);
+  });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -28,7 +34,13 @@ axios.get('https://api.github.com/users/anhogan');
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const friendsArray = ["tetondan", "dustinmyers", "bigknell", "agyin3", "nathandrewts"];
+
+friendsArray.forEach(friend => {
+  axios.get(`https://api.github.com/users/${friend}`)
+  let newFriend = createUser(friend);
+  cardHeader.append(newFriend);
+});
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -92,7 +104,7 @@ function createUser(user) {
   cardDiv.append(infoDiv);
 
   return cardDiv;
-}
+};
 
 /* List of LS Instructors Github username's: 
   tetondan
