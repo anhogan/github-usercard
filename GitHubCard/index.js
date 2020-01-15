@@ -4,11 +4,10 @@
 */
 
 const cardHeader = document.querySelector('.cards');
-console.log(cardHeader);
 
 axios.get('https://api.github.com/users/anhogan')
-  .then(user => {
-      let newUser = createUser(user);
+  .then(response => {
+      let newUser = createUser(response);
       cardHeader.append(newUser);
   });
 
@@ -37,8 +36,8 @@ const friendsArray = ["tetondan", "dustinmyers", "bigknell", "agyin3", "nathandr
 
 friendsArray.forEach(friend => {
   axios.get(`https://api.github.com/users/${friend}`)
-    .then(username => {
-      let newFriend = createUser(username);
+    .then(response => {
+      let newFriend = createUser(response);
       cardHeader.append(newFriend);
     });
 });
