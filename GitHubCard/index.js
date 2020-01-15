@@ -50,6 +50,50 @@ const followersArray = [];
 
 */
 
+function createUser(user) {
+  const cardDiv = document.createElement('div');
+  const image = document.createElement('img');
+  const infoDiv = document.createElement('div');
+  const header = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const link = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  cardDiv.classList.add("card");
+  infoDiv.classList.add("card-info");
+  header.classList.add("name");
+  username.classList.add("username");
+
+  image.src = user.avatar_url;
+  link.href = user.html_url;
+
+  header.textContent = user.name;
+  username.textContent = user.login;
+  location.textContent = `Location: ${user.location}`;
+  profile.textContent = `Profile: ${link}`;
+  link.textContent = user.html_url;
+  followers.textContent = `Followers: ${user.followers}`;
+  following.textContent = `Following: ${user.following}`;
+  bio.textContent = `Bio: ${user.bio}`;
+
+  infoDiv.append(header);
+  infoDiv.append(username);
+  infoDiv.append(location);
+  infoDiv.append(profile);
+  infoDiv.append(followers);
+  infoDiv.append(following);
+  infoDiv.append(bio);
+
+  cardDiv.append(image);
+  cardDiv.append(infoDiv);
+
+  return cardDiv;
+}
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
