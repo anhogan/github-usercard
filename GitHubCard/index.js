@@ -3,6 +3,14 @@
            https://api.github.com/users/<your name>
 */
 
+const cardHeader = document.querySelector('.cards');
+
+axios.get('https://api.github.com/users/anhogan')
+  .then(response => {
+      let newUser = createUser(response.data);
+      cardHeader.append(newUser);
+  });
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -24,7 +32,15 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const friendsArray = ["tetondan", "dustinmyers", "bigknell", "agyin3", "nathandrewts"];
+
+friendsArray.forEach(friend => {
+  axios.get(`https://api.github.com/users/${friend}`)
+    .then(response => {
+      let newFriend = createUser(response.data);
+      cardHeader.append(newFriend);
+    });
+});
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -45,6 +61,52 @@ const followersArray = [];
 </div>
 
 */
+
+function createUser(user) {
+  const cardDiv = document.createElement('div');
+  const image = document.createElement('img');
+  const infoDiv = document.createElement('div');
+  const header = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const link = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  cardDiv.classList.add("card");
+  infoDiv.classList.add("card-info");
+  header.classList.add("name");
+  username.classList.add("username");
+
+  image.src = user.avatar_url;
+  link.href = user.html_url;
+
+  header.textContent = user.name;
+  username.textContent = user.login;
+  location.textContent = `Location: ${user.location}`;
+  profile.textContent = `Profile: `;
+  link.textContent = user.html_url;
+  followers.textContent = `Followers: ${user.followers}`;
+  following.textContent = `Following: ${user.following}`;
+  bio.textContent = `Bio: ${user.bio}`;
+
+  profile.append(link);
+
+  infoDiv.append(header);
+  infoDiv.append(username);
+  infoDiv.append(location);
+  infoDiv.append(profile);
+  infoDiv.append(followers);
+  infoDiv.append(following);
+  infoDiv.append(bio);
+
+  cardDiv.append(image);
+  cardDiv.append(infoDiv);
+
+  return cardDiv;
+};
 
 /* List of LS Instructors Github username's: 
   tetondan
